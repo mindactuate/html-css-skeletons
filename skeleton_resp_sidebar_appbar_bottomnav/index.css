@@ -1,0 +1,119 @@
+/* =================================================================================== */
+/* try to understand this and implement it with the style technology of your choice :D */
+/* =================================================================================== */
+
+/* the layout makes use of flexbox... in order to fully understand the layout you should know a little bit about it */
+/* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+
+/* cleaning up default margins and paddings */
+/* and setting box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+.container {
+  /* set the min-height to the full height of the browser window */
+  /* set container to a column flex (which means that its children are stacked on top of each other in one single column)*/
+  /* set the overflow to hidden so that the container doesn't have any scroll bars */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+:root {
+  /* the header height is only used 2 times but for DRY you can set it as a css variable */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties */
+  --header-height: 50px;
+}
+
+.header {
+  background-color: aqua;
+  /* set the height to a fixed value so that you can calc the height of main */
+  /* you can also set the header to position fixed but then the header 
+      overlays the "main" element and you would've to set padding or a margin to "main"*/
+  height: var(--header-height);
+
+  /* choose a flex or grid system as needed */
+  display: flex;
+  flex-direction: row;
+}
+
+.main {
+  /* set the height to the height of the browser window minus the height of the header */
+  /* set main to a row flex (which means that its children are positioned side by side in one single row) */
+  /* set flex-grow to 1 so that "main" fills up the available vertical space provided by its parent "container" */
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.desktopSidebar {
+  background-color: pink;
+  /* set the width to a fixed value */
+  /* set flex-shrink to 0 so that the box cannot shrink below the fixed width */
+  /* set the height to 100% so that the sidebar fills up 100% of its parent height */
+  width: 240px;
+  flex-shrink: 0;
+  height: 100%;
+
+  /* mobile first design: hide the sidebar on mobile */
+  display: none;
+}
+
+.content {
+  background-color: yellow;
+  /* set flex-grow to 1 so that "content" fills up the available horizontal space provided by its parent "main" */
+  /* set overflow-y to auto to allow vertical scrollbars and overflow-x to hidden to hide horizontal scroll bars*/
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* choose a flex or grid system as needed */
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  margin-bottom: 8px;
+}
+
+.mobileBottomNav {
+  background-color: greenyellow;
+  /* set position to fixed so that the bottom nav sticks to a fixed position on a screen */
+  /* set the position to bottom 0, left 0, and right 0 */
+  /* be aware that a fixed positioned element can overlay other elements, in our example "content" */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  /* mobile first design: show the bottom nav on mobile */
+  /* choose a flex or grid system as needed */
+  display: flex;
+  flex-direction: column;
+}
+
+/* in vanilla css files (or in between style tags) order matters */
+/* set the media query last */
+@media (min-width: 900px) {
+  .desktopSidebar {
+    /* show the desktop sidebar on screens with a width >= 900px */
+    /* choose a flex or grid system as needed */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobileBottomNav {
+    /* hide the bottom nav on screens with a width >= 900px */
+    display: none;
+  }
+}
