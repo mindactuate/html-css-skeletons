@@ -73,9 +73,11 @@
   background-color: yellow;
   /* set flex-grow to 1 so that "content" fills up the available horizontal space provided by its parent "main" */
   /* set overflow-y to auto to allow vertical scrollbars and overflow-x to hidden to hide horizontal scroll bars*/
+  /* set padding-bottom to a value greater than the height of the mobile bottom nav */
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: 50px;
 
   /* choose a flex or grid system as needed */
   display: flex;
